@@ -1,1 +1,1 @@
-# MathpixtoTeX
+# Mathpix2TeX

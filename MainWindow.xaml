@@ -1,0 +1,340 @@
+﻿<Window x:Class="MathpixtoTeX.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathpixtoTeX"
+        mc:Ignorable="d"   Loaded="Window_OnLoaded"
+        Title="Chỉnh sửa và chuyển đổi code Mathpix" Height="627" Width="1603" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>              
+        <Grid.RowDefinitions>
+            <RowDefinition Height="103"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DockPanel Margin="3">
+                <GroupBox Header="Clipboard" FontSize="13">
+                    <DockPanel Margin="3">
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Click="LoadFile_Click">
+                            <StackPanel>
+                                <Image Source="Images/Folder.png" Height="40" />
+                                <TextBlock Text="Open TeX"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0">
+                            <StackPanel>
+                                <Image Source="Images/Database.png" Height="40" />
+                                <TextBlock Text="Sao lưu"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0" Click="Clipboard_Click">
+                            <StackPanel>
+                                <Image Source="Images/Paste.png" Height="40" />
+                                <TextBlock Text="Clipboard"/>
+                            </StackPanel>
+                        </Button>
+
+                        <StackPanel>
+                            <Button Width="100" Height="32" BorderThickness="0" Background="WhiteSmoke" Margin="5,3,0,0" Click="Saochep_Click">
+                                <DockPanel VerticalAlignment="Center">
+                                    <Image Source="Images/Copy.png" Height="24" />
+                                    <TextBlock Margin="5,0,0,0" Text="Sao chép" VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Button>
+                            <Button Width="100" BorderThickness="0" Height="32" Background="WhiteSmoke"  Margin="5,1,0,0" Click="Xoacode_Click">
+                                <DockPanel VerticalAlignment="Center">
+                                    <Image Source="Images/Delete.png" Height="24" />
+                                    <TextBlock Margin="5,0,0,0" Text="Xóa code" VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Button>
+                           
+                        </StackPanel>
+                    </DockPanel>
+                </GroupBox>
+                <!--<GroupBox Header="Font" FontSize="13">
+                    <DockPanel Margin="3">
+                        <StackPanel>
+                            <DockPanel>
+                                <ComboBox Name="fontComboBox" Width="150" Height="30" VerticalContentAlignment="Center" SelectedIndex="0">
+                                    <ComboBoxItem Content="Arial"/>
+                                    <ComboBoxItem Content="Times New Roman"/>
+                                </ComboBox>
+                                <ComboBox Name="fontSize" Width="50" SelectedIndex="0" VerticalContentAlignment="Center" 
+                                          Margin="5,0,0,0"
+                                          SelectionChanged="fontSize_SelectionChanged">
+                                    <ComboBoxItem Content="12"/>
+                                    <ComboBoxItem Content="13"/>
+                                    <ComboBoxItem Content="14"/>
+                                    <ComboBoxItem Content="15"/>
+                                    <ComboBoxItem Content="16"/>
+                                    <ComboBoxItem Content="17"/>
+                                </ComboBox>
+                            </DockPanel>
+                            
+                            <DockPanel Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33">
+                                <ToggleButton Width="30" Height="26" Background="WhiteSmoke" BorderThickness="0">
+                                    <StackPanel>
+                                        <TextBlock Text="B" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton Margin="5,0,0,0" Width="30" Height="26" Background="WhiteSmoke" BorderThickness="0">
+                                    <StackPanel>
+                                        <TextBlock Text="I" FontWeight="Bold" FontStyle="Italic"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                                <ToggleButton Margin="5,0,0,0" Width="30" Height="26" Background="WhiteSmoke" BorderThickness="0">
+                                    <StackPanel>
+                                        <TextBlock Text="U" FontWeight="Bold" FontStyle="Normal"/>
+                                    </StackPanel>
+                                </ToggleButton>
+                            </DockPanel>
+                            
+                        </StackPanel>
+                    </DockPanel>
+                </GroupBox>-->
+                <GroupBox Header="Chuyển đổi" FontSize="13" HorizontalAlignment="Left">
+                    <DockPanel Margin="3">
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Click="ChuyenTeX_Click">
+                            <StackPanel>
+                                <Image Source="Images/Mathpix2TeX.png" Height="40" />
+                                <TextBlock Text="Chuyển TeX"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0" Click="Fixchinhta_Click">
+                            <StackPanel>
+                                <Image Source="Images/Translate.png" Height="40" />
+                                <TextBlock Text="Soát chính tả"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0" Click="EXsangBT_Click">
+                            <StackPanel>
+                                <Image Source="Images/Exchange.png" Height="40" />
+                                <TextBlock Text="EX sang BT"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox Header="Định dạng item" FontSize="13" HorizontalAlignment="Left">
+                    <DockPanel Margin="3">
+                        <StackPanel>
+                            <DockPanel VerticalAlignment="Center">
+                                <TextBlock Width="80"  Text="Định dạng" VerticalAlignment="Center"/>
+                                <ComboBox Width="50" Name="Dang"  Height="28">
+                                    <ComboBoxItem IsSelected="True">a)</ComboBoxItem>
+                                    <ComboBoxItem>(a)</ComboBoxItem>
+                                    <ComboBoxItem>1)</ComboBoxItem>
+                                    <ComboBoxItem>(1)</ComboBoxItem>
+                                    <ComboBoxItem>1.</ComboBoxItem>
+                                </ComboBox>
+                            </DockPanel>
+                            <DockPanel Margin="0,5,0,0">
+                                <TextBlock Width="80"  Text="Số cột" VerticalAlignment="Center"/>
+                                <ComboBox Width="50" Name="Socot" Height="28">
+                                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                                    <ComboBoxItem>2</ComboBoxItem>
+                                    <ComboBoxItem>3</ComboBoxItem>
+                                    <ComboBoxItem>4</ComboBoxItem>
+                                    <ComboBoxItem>5</ComboBoxItem>
+                                    <ComboBoxItem>6</ComboBoxItem>
+                                </ComboBox>
+                            </DockPanel>
+                        </StackPanel>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0" Click="TaoEnumEX_Click">
+                            <StackPanel>
+                                <Image Source="Images/EnumEX.png" Height="40" />
+                                <TextBlock Text="Tạo EnumEX"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="80" BorderThickness="0" Background="WhiteSmoke" Margin="5,0,0,0" Click="TaoListEX_Click">
+                            <StackPanel>
+                                <Image Source="Images/List.png" Height="40" />
+                                <TextBlock Text="Tạo ListEX"/>
+                            </StackPanel>
+                        </Button>
+                        <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0">
+                            <DockPanel Margin="5,5,0,0">
+                                <TextBlock Text="Đề mục" Width="75" VerticalAlignment="Center"/>
+                                <ComboBox Width="110" Name="Chapter" Height="28" VerticalContentAlignment="Center">
+                                    <ComboBoxItem>chapter</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">section</ComboBoxItem>
+                                    <ComboBoxItem>subsection</ComboBoxItem>
+                                    <ComboBoxItem>subsubsection</ComboBoxItem>
+                                    <ComboBoxItem>paragraph</ComboBoxItem>
+                                </ComboBox>
+                                <Button Margin="5,0,0,0" Width="50" Background="WhiteSmoke" 
+                                        BorderThickness="0"
+                                        Click="Taodemuc_Click">
+                                    <DockPanel>
+                                        <TextBlock Text="Tạo"/>
+                                    </DockPanel>
+                                </Button>
+                            </DockPanel>
+                            <DockPanel Margin="5,5,0,0">
+                                <TextBlock Text="Thêm dòng" Width="75" VerticalAlignment="Center"/>
+                                <TextBox x:Name="Nhapsd" Height="28" Width="110" VerticalContentAlignment="Center"/>
+                                <Button Margin="5,0,0,0" Background="WhiteSmoke" BorderThickness="0" Click="Themdong_Click">
+                                    <DockPanel>
+                                        <TextBlock Text="Tạo"/>
+                                    </DockPanel>
+                                </Button>
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox Header="Cập nhật ứng dụng" FontSize="13" HorizontalAlignment="Left">
+                    <DockPanel Margin="3">
+                        <StackPanel>
+                            <Label Margin="0,5,0,0" Name="CurrentVersion" Height="24"/>
+                            <Label Margin="0,5,0,0" Name="NewVersion" Height="24" Content="LÊ TRIỆU BÁ VƯƠNG"  />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Left">
+                            <Button x:Name="btnCheck" Width="145" BorderThickness="0" Background="WhiteSmoke" Margin="5,5,0,0" Click="Update_Click">
+                                <DockPanel HorizontalAlignment="Left">
+                                    <Image Source="Images/Internet.png" Height="24" Width="24" />
+                                    <TextBlock Width="115" Margin="5,0,0,0" Text="Kiểm tra cập nhật" VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Button>
+                            <Button x:Name="btnUpdate" Width="145" BorderThickness="0" Background="WhiteSmoke" Margin="5,5,0,0" Click="CheckForUpdate_Click">
+                                <DockPanel>
+                                    <Image Source="Images/Updated.png" Height="24" Width="24"/>
+                                    <TextBlock Margin="5,0,0,0" Width="115"  Text="Cập nhật ứng dụng" VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Button>
+                        </StackPanel>
+                        
+                    </DockPanel>
+                </GroupBox>
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="gridChinhta" Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TabControl TabStripPlacement="Left" >
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <ContentPresenter Content="{TemplateBinding Content}">
+                                            <ContentPresenter.LayoutTransform>
+                                                <RotateTransform Angle="270" />
+                                            </ContentPresenter.LayoutTransform>
+                                        </ContentPresenter>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Padding" Value="3" />
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem>
+                        <TabItem.Header>
+                            <ToggleButton x:Name="DongmoCT" Content="Chính tả" Click="ToggleButton_Click" 
+                                          Background="Transparent" FontSize="13"
+                                          BorderThickness="0"/>
+                        </TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel HorizontalAlignment="Stretch" Margin="5">
+                                    <Label Content="Tìm kiếm" Width="80" HorizontalAlignment="Left" FontSize="13"/>
+                                    <TextBox x:Name="txtTimkem" Height="28" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                                    <Label Content="Thay thế" Width="80" HorizontalAlignment="Left" FontSize="13"/>
+                                    <TextBox x:Name="txtThaythe" Height="28" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                                    <DockPanel HorizontalAlignment="Right" Margin="0,5,0,0">
+                                        <Button Height="28" Width="100" Click="XoaCSDL_Click" Background="WhiteSmoke" BorderThickness="0">
+                                            <DockPanel VerticalAlignment="Center">
+                                                <Image Source="Images/Delete.png" Height="24" />
+                                                <TextBlock Margin="5,0,0,0" Text="Xóa cụm từ" VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button Margin="5,0,0,0" Height="28" Width="100" Click="Suacumtu_Click" Background="WhiteSmoke" BorderThickness="0">
+                                            <DockPanel VerticalAlignment="Center">
+                                                <Image Source="Images/Copy.png" Height="20" />
+                                                <TextBlock Margin="5,0,0,0" Text="Sửa cụm từ" VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button Margin="5,0,0,0" HorizontalAlignment="Right" Height="28" Width="100" Click="Themloi_Click" Background="WhiteSmoke" BorderThickness="0">
+                                            <DockPanel VerticalAlignment="Center">
+                                                <Image Source="Images/Database.png" Height="20" />
+                                                <TextBlock Margin="5,0,0,0" Text="Thêm cụm từ" VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </Button>
+                                    </DockPanel>
+                                    
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ListView FontSize="14" Name="myListView" Margin="0,5,0,0" SelectionChanged="myListView_SelectionChanged">
+                                        <ListView.View>
+                                            <GridView AllowsColumnReorder="False">
+                                                <GridViewColumn Header="STT" Width="50">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding STT}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <!-- Cột 1 -->
+                                                <GridViewColumn Header="Tìm kiếm" Width="120">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Timkiem}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <!-- Cột 2 -->
+                                                <GridViewColumn Header="Thay thế" Width="120">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Thaythe}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                        
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <ToolBar>
+                        <ToolBarPanel>
+                            <Button Content="B" Width="24"/>
+                        </ToolBarPanel>
+                    </ToolBar>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <RichTextBox x:Name="Hienthicode"  Margin="5,0,5,0">
+                            <FlowDocument>
+                                <Paragraph FontSize="16">
+                                    <Run Text=""/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ScrollViewer>
+                </Grid>
+               
+            </Grid>
+        </Grid>
+        
+        
+    </Grid>
+</Window>
